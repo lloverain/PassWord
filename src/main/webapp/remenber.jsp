@@ -11,7 +11,6 @@
     <a>平台<input type="text" id="pintai"></a><br>
     <input type="button" onclick="remake()" value="写入">
     <button type="button" onclick="chakan()">查看</button>
-    <button type="button" onclick="shanchu()">删除</button>
 </div>
 
 <div class="xianshi">
@@ -76,6 +75,9 @@
     input[type=text] {
         border-radius: 5px;
 
+    }
+    .xianshi tr:hover{
+        background: rgba(93, 247, 20, 0.32);
     }
 </style>
 

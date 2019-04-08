@@ -1,6 +1,6 @@
-package JDBC.Interface;
+package Interface;
 
-import JDBC.Dao.Passw;
+import pojo.Passw;
 
 import java.util.List;
 

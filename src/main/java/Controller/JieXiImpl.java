@@ -1,7 +1,7 @@
-package JDBC.Controller;
+package Controller;
 
-import JDBC.Dao.Passw;
-import JDBC.Interface.JieXi;
+import pojo.Passw;
+import Interface.JieXi;
 import net.sf.json.JSONObject;
 
 /**

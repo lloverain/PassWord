@@ -1,12 +1,17 @@
-package JDBC.Controller;
+package Controller;
 
-import JDBC.Dao.Passw;
-import JDBC.Interface.CaoZuo;
+import pojo.Passw;
+import Interface.CaoZuo;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -16,7 +21,7 @@ import java.util.List;
  */
 public class Jdbc {
    public static CaoZuo initApplication(){
-       String XmlPath = "JDBC/ApplicationContext.xml";
+       String XmlPath = "ApplicationContext.xml";
        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(XmlPath);
        CaoZuo caoZuo = (CaoZuo) applicationContext.getBean("caoZuo");
        return caoZuo;
@@ -49,11 +54,25 @@ public class Jdbc {
 
     @Test
     public void chuangbiao(){
-        String XmlPath = "JDBC/ApplicationContext.xml";
+        String XmlPath = "ApplicationContext.xml";
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(XmlPath);
         JdbcTemplate jdbcTemplate = (JdbcTemplate) applicationContext.getBean("jdbcTemplate");
         String sql = "CREATE TABLE user(id INT PRIMARY KEY auto_increment,zhanghu VARCHAR(50),mima VARCHAR(50),pintai VARCHAR(50))";
         jdbcTemplate.execute(sql);
         System.out.println("创建成功");
+    }
+
+    @Test
+    public void demo01() throws Exception{
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+//        Passw passw = sqlSession.selectOne("CustomerMapper.aaa",5);
+        List<Passw> list = sqlSession.selectList("CustomerMapper.aaa");
+//        System.out.println(passw.toString());
+        for(Passw passw : list){
+            System.out.println(passw.toString());
+        }
     }
 }

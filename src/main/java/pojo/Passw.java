@@ -1,7 +1,4 @@
-package JDBC.Dao;
-
-import jdk.nashorn.internal.objects.annotations.Property;
-import org.springframework.stereotype.Component;
+package pojo;
 
 /**
  * @author yangjiaying

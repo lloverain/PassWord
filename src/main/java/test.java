@@ -1,7 +1,5 @@
-package JDBC;
-
-import JDBC.Dao.Passw;
-import JDBC.Interface.CaoZuo;
+import pojo.Passw;
+import Interface.CaoZuo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class test {
     public static void main(String[] args) {
-        String XmlPath = "JDBC/ApplicationContext.xml";
+        String XmlPath = "ApplicationContext.xml";
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext(XmlPath);
 //        JdbcTemplate jdbcTemplate = (JdbcTemplate) applicationContext.getBean("jdbcTemplate");
 //        jdbcTemplate.execute("CREATE TABLE user(id INT PRIMARY KEY  auto_increment," +

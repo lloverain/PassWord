@@ -7,26 +7,29 @@
       <Visible>1</Visible>
     </schema>
     <schema id="3" parent="1" name="information_schema"/>
-    <table id="4" parent="2" name="user"/>
-    <column id="5" parent="4" name="id">
+    <schema id="4" parent="1" name="mysql"/>
+    <schema id="5" parent="1" name="performance_schema"/>
+    <schema id="6" parent="1" name="sys"/>
+    <table id="7" parent="2" name="user"/>
+    <column id="8" parent="7" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="6" parent="4" name="zhanghu">
+    <column id="9" parent="7" name="zhanghu">
       <Position>2</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="7" parent="4" name="mima">
+    <column id="10" parent="7" name="mima">
       <Position>3</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="8" parent="4" name="pintai">
+    <column id="11" parent="7" name="pintai">
       <Position>4</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <key id="9" parent="4" name="PRIMARY">
+    <key id="12" parent="7" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

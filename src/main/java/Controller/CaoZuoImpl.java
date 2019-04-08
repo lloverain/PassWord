@@ -1,11 +1,12 @@
-package JDBC.Controller;
+package Controller;
 
-import JDBC.Interface.CaoZuo;
-import JDBC.Dao.Passw;
+import Interface.CaoZuo;
+import pojo.Passw;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -15,7 +16,6 @@ import java.util.List;
  */
 public class CaoZuoImpl implements CaoZuo {
     private JdbcTemplate jdbcTemplate;
-
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -30,6 +30,11 @@ public class CaoZuoImpl implements CaoZuo {
         };
         System.out.println(passw.getPintai());
         int num = this.jdbcTemplate.update(sql,objects);
+        try {
+            this.jdbcTemplate.getDataSource().getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return num;
     }
 
@@ -42,6 +47,11 @@ public class CaoZuoImpl implements CaoZuo {
                 passw.getPintai()
         };
         int num = this.jdbcTemplate.update(sql,objects);
+        try {
+            this.jdbcTemplate.getDataSource().getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return num;
     }
 
@@ -53,6 +63,11 @@ public class CaoZuoImpl implements CaoZuo {
             passw.getMima()
         };
         int num = this.jdbcTemplate.update(sql,objects);
+        try {
+            this.jdbcTemplate.getDataSource().getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return num;
     }
 
@@ -61,6 +76,11 @@ public class CaoZuoImpl implements CaoZuo {
         String sql = "select * from user";
         RowMapper<Passw> rowMapper = new BeanPropertyRowMapper<>(Passw.class);
         List<Passw> list = this.jdbcTemplate.query(sql,rowMapper);
+        try {
+            this.jdbcTemplate.getDataSource().getConnection().close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return list;
     }
 }

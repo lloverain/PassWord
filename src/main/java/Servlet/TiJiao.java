@@ -1,19 +1,16 @@
-package JDBC.Servlet;
+package Servlet;
 
-import JDBC.Controller.Jdbc;
-import JDBC.Controller.JieXiImpl;
-import JDBC.Dao.Passw;
-import JDBC.Interface.JieXi;
-import net.sf.json.JSON;
+import Controller.JieXiImpl;
+import Controller.Operation;
+import pojo.Passw;
+import Interface.JieXi;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.util.List;
 
@@ -25,6 +22,7 @@ import java.util.List;
 @WebServlet(name = "TiJiao",value = "/chuli")
 public class TiJiao extends HttpServlet {
     private JieXi jieXi = new JieXiImpl();
+    private Operation caozuoSql = new Operation();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("get");
@@ -57,7 +55,8 @@ public class TiJiao extends HttpServlet {
         }
         String data = sb.toString();
         Passw datas = jieXi.jiexiJSON(data);
-        int num = Jdbc.tianjia(datas);
+//        int num = Jdbc.tianjia(datas);
+        int num = caozuoSql.insertdata(datas);
         System.out.println("返回的是:"+num);
         PrintWriter out = response.getWriter();
         out.print(num);
@@ -65,7 +64,7 @@ public class TiJiao extends HttpServlet {
     }
 
     protected void chakan(HttpServletRequest request,HttpServletResponse response) throws SecurityException,IOException{
-        List<Passw> list = Jdbc.chaxun();
+        List<Passw> list = caozuoSql.selectdata();
         JSONArray jsonArray = JSONArray.fromObject(list);
         PrintWriter printWriter = response.getWriter();
         printWriter.print(jsonArray.toString());
@@ -83,7 +82,8 @@ public class TiJiao extends HttpServlet {
         String data = sb.toString();
 //        System.out.println(data);
         Passw use = jieXi.shanchu(data);
-        int num = Jdbc.shanchu(use);
+//        int num = Jdbc.shanchu(use);
+        int num = caozuoSql.deletedata(use);
         PrintWriter printWriter = response.getWriter();
         printWriter.print(num);
         printWriter.close();
@@ -102,7 +102,7 @@ public class TiJiao extends HttpServlet {
         String caozuo = jieXi.caozuo(data);
         System.out.println(caozuo);
         if("cha".equals(caozuo)){
-            List<Passw> list = Jdbc.chaxun();
+            List<Passw> list = caozuoSql.selectdata();
             JSONArray json = JSONArray.fromObject(list);
             PrintWriter out = response.getWriter();
             out.print(json.toString());
