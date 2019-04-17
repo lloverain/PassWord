@@ -4,7 +4,11 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
-  <welcome-file-list>
+    <servlet>
+        <servlet-name>kebiao</servlet-name>
+        <servlet-class>Servlet.kebiao</servlet-class>
+    </servlet>
+    <welcome-file-list>
     <welcome-file>remenber.jsp</welcome-file>
   </welcome-file-list>
 </web-app>
