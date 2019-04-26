@@ -14,4 +14,5 @@ public interface CaoZuo {
     public int gengxin(Passw passw);
     public int shanchu(Passw passw);
     public List<Passw> chakan();
+    public List<Passw> sousuo();
 }

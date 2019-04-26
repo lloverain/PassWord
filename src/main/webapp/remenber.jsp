@@ -1,159 +1,177 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>账户</title>
 </head>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="js/password.js"></script>
+<link rel="stylesheet" href="css/password.css">
 <body>
 <div class="zhu">
-    <a>账户<input type="text" id="zhanghu"></a><br />
+    <a>账户<input type="text" id="zhanghu"></a><br/>
     <a>密码<input type="text" id="mima"></a><br>
     <a>平台<input type="text" id="pintai"></a><br>
     <input type="button" onclick="remake()" value="写入">
-    <button type="button" onclick="chakan()">查看</button>
+    <%--<button type="button" onclick="chakan()">查看</button>--%>
 </div>
+<div align="center">
+    <form method="post" action="/chuli?opt=sousuo&pagenow=${now}" onsubmit="return tijiao()">
+        <a>搜索</a>
+        <select id="lei" name="lei">
+            <option>账户</option>
+            <option>平台</option>
+        </select>
+        <input type="text" placeholder="输入账户或平台" id="sousuoneirong" name="sousuoneirong">
+        <button type="submit">搜索</button>
+        <button type="button" onclick="yanzhen()">验证</button>
+        <br>
+        <a>每页显示个数:</a>
+        <input type="radio" id="r1" class="radio" name="show" value="2">2
+        <input type="radio" id="r2" class="radio" name="show" value="3">3
+        <input type="radio" id="r3" class="radio" name="show" value="4">4
+    </form>
+</div>
+<%--<div class="xianshi">--%>
+    <%--<table id="aaa">--%>
+        <%--<tr>--%>
+            <%--<th>账户</th>--%>
+            <%--<th>密码</th>--%>
+            <%--<th>平台</th>--%>
+            <%--<th>操作</th>--%>
+        <%--</tr>--%>
+    <%--</table>--%>
+<%--</div>--%>
 
 <div class="xianshi">
-    <table id="aaa">
-        <tr >
+    <c:if test="${applicationScope.data!=null}">
+        <c:set value="${applicationScope.data}" var="data"/>
+    </c:if>
+    <c:if test="${sessionScope.data != null}">
+        <c:set value="${sessionScope.data}" var="data"/>
+    </c:if>
+
+    <table id="bbb">
+
+        <tr>
             <th>账户</th>
             <th>密码</th>
             <th>平台</th>
-            <th>操作</th>
         </tr>
+        <c:forEach items="${data}" var="rain">
+        <tr>
+            <td>${rain.getZhanghu()}</td>
+            <td>${rain.getMima()}</td>
+            <td>${rain.getPintai()}</td>
+        </tr>
+        </c:forEach>
     </table>
+    <c:if test="${applicationScope.now!=null}">
+        <c:set value="${applicationScope.now}" var="now"/>
+    </c:if>
+    <c:if test="${sessionScope.now!=null}">
+        <c:set value="${sessionScope.now}" var="now"/>
+    </c:if>
 
+    <c:if test="${applicationScope.zongyeshu!=null}">
+        <c:set value="${applicationScope.zongyeshu}" var="zongyeshu"/>
+    </c:if>
+    <c:if test="${sessionScope.zongyeshu!=null}">
+        <c:set value="${sessionScope.zongyeshu}" var="zongyeshu"/>
+    </c:if>
+
+    <c:if test="${applicationScope.leixing!=null}">
+        <c:set value="${applicationScope.leixing}" var="leixing"/>
+    </c:if>
+    <c:if test="${sessionScope.leixing!=null}">
+        <c:set value="${sessionScope.leixing}" var="leixing"/>
+    </c:if>
+    <c:if test="${applicationScope.pagesize!=null}">
+        <c:set value="${applicationScope.pagesize}" var="pagesize"/>
+    </c:if>
+    <c:if test="${sessionScope.pagesize!=null}">
+        <c:set value="${sessionScope.pagesize}" var="pagesize"/>
+    </c:if>
 </div>
-<style type="text/css">
-    * {
-        padding: 0px;
-        margin: 0px;
-    }
-
-    .zhu {
-        position: relative;
-        text-align: center;
-        /* background-color: aqua; */
-    }
-
-    .xianshi {
-        padding-top: 50px;
-        width: 70%;
-        margin: 0px auto;
-        /* background-color: blueviolet; */
-    }
-
-    .xianshi table {
-        border-collapse: collapse;
-        width: 100%;
-        border: 1px solid #c6c6c6 !important;
-        margin-bottom: 20px;
-    }
-
-    .xianshi table th {
-        border-collapse: collapse;
-        border-right: 1px solid #c6c6c6 !important;
-        border-bottom: 1px solid #c6c6c6 !important;
-        background-color: #ddeeff !important;
-        padding: 5px 9px;
-        font-size: 14px;
-        font-weight: normal;
-        text-align: center;
-    }
-
-    .xianshi table td {
-        border-collapse: collapse;
-        border-right: 1px solid #c6c6c6 !important;
-        border-bottom: 1px solid #c6c6c6 !important;
-        padding: 5px 9px;
-        font-size: 12px;
-        font-weight: normal;
-        text-align: center;
-        word-break: break-all;
-    }
-
-    input[type=text] {
-        border-radius: 5px;
-
-    }
-    .xianshi tr:hover{
-        background: rgba(93, 247, 20, 0.32);
-    }
-</style>
-
+<div class="navigation" align="center">
+    <a href="chuli?opt=${leixing}&pagenow=1&geshu=${pagesize}" id="shouye">首页</a>
+    <a href="chuli?opt=${leixing}&pagenow=${now-2}&geshu=${pagesize}" id="fu2">${now-2}</a>
+    <a href="chuli?opt=${leixing}&pagenow=${now-1}&geshu=${pagesize}" id="fu1">${now-1}</a>
+    <a id="now">${now}</a>
+    <a href="chuli?opt=${leixing}&pagenow=${now+1}&geshu=${pagesize}" id="zheng1">${now+1}</a>
+    <a href="chuli?opt=${leixing}&pagenow=${now+2}&geshu=${pagesize}" id="zheng2">${now+2}</a>
+    <a href="chuli?opt=${leixing}&pagenow=${zongyeshu}&geshu=${pagesize}" id="moye">末页</a>
+</div>
+<form action="" method="post" id="geshu"/>
 <script type="text/javascript">
-    chakan();
-    function remake() {
-        var a = document.getElementById("zhanghu").value;
-        var b = document.getElementById("mima").value;
-        var c = document.getElementById("pintai").value;
-        var json = {
-          "zhanghu":a,
-            "mima":b,
-            "pintai":c
-        };
-        $.ajax({
-           type:"POST",
-            url:"chuli?opt=window",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(json),
-            dataType: "json",
-            success:function (data) {
-                if(data == 1){
-                    alert("添加成功");
-                    document.getElementById("zhanghu").value = "";
-                    document.getElementById("mima").value = "";
-                    document.getElementById("pintai").value = "";
-                    chakan();
-                }else{
-                    alert("添加失败");
-                }
-            }
-        });
+    showye();
+    function showye() {
+        var shouye =   document.getElementById("shouye");
+        var fu2 = document.getElementById("fu2");
+        var fu1 = document.getElementById("fu1");
+        var now = document.getElementById("now").innerText;
+        var zheng1 =document.getElementById("zheng1");
+        var zheng2 = document.getElementById("zheng2");
+        var moye = document.getElementById("moye");
+        var r1 = document.getElementById("r1");
+        var r2 = document.getElementById("r2");
+        var r3 = document.getElementById("r3");
+        if(now<=1){
+            shouye.style.display="none";
+            fu2.style.display="none";
+            fu1.style.display="none";
+        }
+        if(now==2){
+            fu2.style.display="none";
+        }
+        if(now==${zongyeshu}){
+            zheng1.style.display="none";
+            zheng2.style.display="none";
+            moye.style.display="none";
+        }
+        if(${zongyeshu}-2<now||${zongyeshu}-1==now){
+            zheng2.style.display="none";
+        }
+        if(${pagesize}==2){
+          r1.checked=true;
+        }
+        if(${pagesize}==3){
+            r2.checked=true;
+        }
+        if(${pagesize}==4){
+            r3.checked=true;
+        }
     }
 
-    function chakan() {
-        $.ajax({
-            type:"POST",
-            url:"chuli?opt=chakan",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success:function (data) {
-                $("#aaa tr:gt(0)").remove();
-                for(var i=0;i<data.length;i++){
-                    var zhanghu = data[i].zhanghu;
-                    var mima = data[i].mima;
-                    var pintai = data[i].pintai;
-                    $("#aaa").append("<tr id='tr"+i+"'><td id='zhanghu"+i+"'>"+zhanghu+"</td><td id='mima"+i+"'>"+mima+"</td><td>"+pintai+"</td><td><button type='button' onclick='shanchu("+i+")'>删除</button></td></tr>");
-                }
+    $(".radio").change(
+        function() {
+            var id = $("input[name='show']:checked").val();
+            var geshu = document.getElementById("geshu");
+            if (id == 2) {
+                geshu.action="chuli?opt=changeshow&pagenow=${now}&geshu=2";
+                geshu.submit();
+            }else if (id == 3){
+                geshu.action="chuli?opt=changeshow&pagenow=${now}&geshu=3";
+                geshu.submit();
+            }else if (id == 4){
+                geshu.action="chuli?opt=changeshow&pagenow=${now}&geshu=4";
+                geshu.submit();
             }
         });
+    
+    function yanzhen() {
+        var neirong = document.getElementById("sousuoneirong").value;
+        if(neirong==null||neirong==""){
+            alert("不能为空!");
+            return false;
+        }else {
+            return true;
+        }
     }
-
-    function shanchu(a) {
-        var zh = "zhanghu"+a;
-        var mm = "mima"+a;
-        var zhanghu = document.getElementById(zh).innerHTML;
-        var mima =    document.getElementById(mm).innerHTML;
-        var json = {
-            "zhanghu":zhanghu,
-            "mima":mima
-        };
-        $.ajax({
-            type:"post",
-            url:"chuli?opt=shanchu",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(json),
-            dataType: "json",
-            success:function (data){
-                if(data == 1){
-                    //执行删除行
-                    chakan();
-                }else{
-                    alert("删除失败")
-                }
-            }
-        });
+    function tijiao() {
+        return yanzhen();
     }
 </script>
 </body>

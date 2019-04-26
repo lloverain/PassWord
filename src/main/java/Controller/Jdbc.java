@@ -42,6 +42,12 @@ public class Jdbc {
         return list;
     }
 
+    public static List<Passw> sousuo(){
+        CaoZuo caoZuo = initApplication();
+        List<Passw> list = caoZuo.chakan();
+        return null;
+    }
+
     public static int shanchu(Passw passw){
         CaoZuo caoZuo = initApplication();
         int num = caoZuo.shanchu(passw);
@@ -51,6 +57,7 @@ public class Jdbc {
             return 0;
         }
     }
+
 
     @Test
     public void chuangbiao(){

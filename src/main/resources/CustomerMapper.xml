@@ -6,6 +6,19 @@
     <select id="aaa" resultType="pojo.Passw">
         SELECT * FROM user
     </select>
+    <select id="sousuozhanghu" resultType="pojo.Passw" parameterType="java.lang.String">
+        SELECT * FROM user WHERE 1=1
+        <if test="_parameter != null and _parameter!='' ">
+            AND zhanghu LIKE concat('%',#{zhanghu},'%')
+        </if>
+    </select>
+    <select id="sousuopingtai" resultType="pojo.Passw" parameterType="java.lang.String">
+        SELECT * FROM user WHERE 1=1
+        <if test="_parameter!=null">
+            AND pintai LIKE concat('%',#{pintai},'%')
+        </if>
+    </select>
+
     <insert id="insertdata" parameterType="pojo.Passw">
          INSERT INTO user(zhanghu, mima, pintai) VALUE (#{zhanghu},#{mima},#{pintai})
     </insert>

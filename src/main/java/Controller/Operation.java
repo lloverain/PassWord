@@ -31,6 +31,24 @@ public class Operation {
         sqlSession.close();
         return list;
     }
+
+    public List<Passw> sousuozhanghu(String zhanghu) throws IOException {
+        String resouce = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resouce);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Passw> list = sqlSession.selectList("CustomerMapper.sousuozhanghu",zhanghu);
+        return list;
+    }
+
+    public List<Passw> sousuopintai(String pintai) throws IOException {
+        String resouce = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resouce);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        List<Passw> list = sqlSession.selectList("CustomerMapper.sousuopingtai",pintai);
+        return list;
+    }
     public int insertdata(Passw passw) throws IOException {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
