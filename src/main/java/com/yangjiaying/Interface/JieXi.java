@@ -1,6 +1,6 @@
-package Interface;
+package com.yangjiaying.Interface;
 
-import pojo.Passw;
+import com.yangjiaying.pojo.Passw;
 
 /**
  * @author yangjiaying

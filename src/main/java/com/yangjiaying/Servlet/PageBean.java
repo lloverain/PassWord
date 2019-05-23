@@ -1,6 +1,6 @@
-package Controller;
+package com.yangjiaying.Servlet;
 
-import pojo.Passw;
+import com.yangjiaying.pojo.Passw;
 
 import java.util.List;
 

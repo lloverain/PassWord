@@ -1,7 +1,7 @@
-package Controller;
+package com.yangjiaying.Servlet;
 
-import pojo.Passw;
-import Interface.JieXi;
+import com.yangjiaying.pojo.Passw;
+import com.yangjiaying.Interface.JieXi;
 import net.sf.json.JSONObject;
 
 /**

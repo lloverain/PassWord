@@ -9,7 +9,7 @@
   <display-name>Archetype Created Web Application</display-name>
     <servlet>
         <servlet-name>kebiao</servlet-name>
-        <servlet-class>Servlet.kebiao</servlet-class>
+        <servlet-class>com.yangjiaying.controller.kebiao</servlet-class>
     </servlet>
     <welcome-file-list>
     <welcome-file>remenber.jsp</welcome-file>

@@ -1,9 +1,10 @@
-package Servlet;
+package com.yangjiaying.controller;
 
-import Controller.*;
+import com.yangjiaying.Interface.opration;
+import com.yangjiaying.Servlet.*;
 import org.springframework.core.annotation.Order;
-import pojo.Passw;
-import Interface.JieXi;
+import com.yangjiaying.pojo.Passw;
+import com.yangjiaying.Interface.JieXi;
 import net.sf.json.JSONArray;
 
 import javax.servlet.ServletConfig;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,22 +25,18 @@ import java.util.List;
 @WebServlet(name = "TiJiao",value = "/chuli",loadOnStartup = 1)
 @Order(value = 1)
 public class TiJiao extends HttpServlet {
-    int pagesize= 2;//页面显示数
+    int pagesize= 5;//页面显示数
     List<Passw> list;//数据
     String leixing;//类型
     String lei;
     String data;
+    oprationImpl opration = new oprationImpl();
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         int pagenum = 1;
         leixing = "show";
-        Operation operation = new Operation();
-        try {
-                list = operation.selectdata();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        list = opration.selectdata();
         fenye fenye = new fenye();
         PageBean pageBean = fenye.findAllsousuo(list,pagenum,pagesize);
         int end = pageBean.getEnd();
@@ -56,7 +52,6 @@ public class TiJiao extends HttpServlet {
     }
 
     private JieXi jieXi = new JieXiImpl();
-    private Operation caozuoSql = new Operation();//操作sql
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doPost(req,resp);
@@ -103,7 +98,7 @@ public class TiJiao extends HttpServlet {
         }
         String data = sb.toString();
         Passw datas = jieXi.jiexiJSON(data);
-        int num = caozuoSql.insertdata(datas);
+        int num = opration.insertdata(datas);
         PrintWriter out = response.getWriter();
         out.print(num);
         out.close();
@@ -117,7 +112,7 @@ public class TiJiao extends HttpServlet {
      * @throws IOException
      */
     protected void chakan(HttpServletRequest request,HttpServletResponse response) throws SecurityException,IOException{
-        List<Passw> list = caozuoSql.selectdata();
+        List<Passw> list = opration.selectdata();
         JSONArray jsonArray = JSONArray.fromObject(list);
         PrintWriter printWriter = response.getWriter();
         printWriter.print(jsonArray.toString());
@@ -141,7 +136,7 @@ public class TiJiao extends HttpServlet {
         }
         String data = sb.toString();
         Passw use = jieXi.shanchu(data);
-        int num = caozuoSql.deletedata(use);
+        int num = opration.delectdata(use);
         PrintWriter printWriter = response.getWriter();
         printWriter.print(num);
         printWriter.close();
@@ -149,8 +144,7 @@ public class TiJiao extends HttpServlet {
     protected void show(HttpServletRequest request,HttpServletResponse response) throws SecurityException,IOException{
         int pagenum = Integer.parseInt(request.getParameter("pagenow"));
         leixing= "show";
-        Operation operation = new Operation();
-        list = operation.selectdata();
+        list = opration.selectdata();
         try {
             fenye(pagenum,request,response);
         } catch (ServletException e) {
@@ -211,10 +205,10 @@ public class TiJiao extends HttpServlet {
         data = new String(d.getBytes("iso-8859-1"),"utf8");
         System.out.println(lei+data);
         if("账户".equals(lei)){
-            list = caozuoSql.sousuozhanghu(data);
+            list = opration.selectzhanghu(data);
         }
         if("平台".equals(lei)){
-            list = caozuoSql.sousuopintai(data);
+            list = opration.selectpingtai(data);
         }
         System.out.println("搜索出来的"+list.size());
         leixing = "sousuoshow";
@@ -260,7 +254,7 @@ public class TiJiao extends HttpServlet {
         String caozuo = jieXi.caozuo(data);
         System.out.println(caozuo);
         if("cha".equals(caozuo)){
-            List<Passw> list = caozuoSql.selectdata();
+            List<Passw> list = opration.selectdata();
             JSONArray json = JSONArray.fromObject(list);
             PrintWriter out = response.getWriter();
             out.print(json.toString());

@@ -1,4 +1,4 @@
-package pojo;
+package com.yangjiaying.pojo;
 
 /**
  * @author yangjiaying

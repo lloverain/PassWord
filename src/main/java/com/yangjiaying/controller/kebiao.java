@@ -1,4 +1,4 @@
-package Servlet;
+package com.yangjiaying.controller;
 
 import javax.servlet.annotation.WebServlet;
 import java.io.*;
