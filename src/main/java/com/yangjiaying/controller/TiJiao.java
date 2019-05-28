@@ -186,7 +186,7 @@ public class TiJiao extends HttpServlet {
         session.setAttribute("zongyeshu",zongyeshu);
         session.setAttribute("leixing",leixing);
         session.setAttribute("pagesize",pagesize);
-        request.getRequestDispatcher("remenber.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/jsp/remenber.jsp").forward(request, response);
     }
 
     /**

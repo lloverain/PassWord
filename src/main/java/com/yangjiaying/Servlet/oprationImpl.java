@@ -13,8 +13,7 @@ import java.util.List;
  */
 @Transactional
 public class oprationImpl implements opration {
-    static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("ApplicationContext.xml");
-//    CustomerMapper customerMapper = context.getBean(CustomerMapper.class);
+    static ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("spring-mybatis.xml");
     SqlSession sqlSession = (SqlSession) context.getBean("sqlSession");
     @Override
     public List<Passw> selectdata() {

@@ -6,13 +6,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>账户</title>
 </head>
-<script src="js/jquery-3.3.1.js"></script>
-<script src="js/password.js"></script>
-<link rel="stylesheet" href="css/password.css">
-<body background="image/tiankong.jpg" style="background-size: 100% 100%">
+<script src="../../js/jquery-3.3.1.js"></script>
+<script src="../../js/password.js"></script>
+<link rel="stylesheet" href="../../css/password.css">
+<body background="../../image/tiankong.jpg" style="background-size: 100% 100%">
 <div class="main">
     <div class="left">
         <div class="zhu">
+            <span><a>欢迎您:${name}</a></span>
             <span><a>账户</a><input type="text" id="zhanghu" placeholder="输入你想保存账户～"></span>
             <span><a>密码</a><input type="text" id="mima" placeholder="这里输入你的密码！"></span>
             <span><a>平台</a><input type="text" id="pintai" placeholder="这是在哪个平台呀？"></span>

@@ -31,4 +31,7 @@
     <delete id="androiddeletedata" parameterType="java.lang.Integer">
         DELETE FROM data.user WHERE id = #{a};
     </delete>
+    <select id="login" resultType="int" parameterType="com.yangjiaying.pojo.user">
+        select count(*) from users where users.user = #{username} and password = #{password}
+    </select>
 </mapper>

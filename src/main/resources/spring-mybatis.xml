@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <aop:aspectj-autoproxy/>
     <context:component-scan base-package="com.yangjiaying"/>
-<bean id="database" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    <property name="url" value="jdbc:mysql://127.0.0.1:3306/data?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"/>
-    <property name="username" value="root"/>
-    <property name="password" value="1314520"/>
-</bean>
+    <bean id="database" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://127.0.0.1:3306/data?useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false"/>
+        <property name="username" value="root"/>
+        <property name="password" value="1314520"/>
+    </bean>
     <bean class="org.springframework.jdbc.core.JdbcTemplate" id="jdbcTemplate">
         <property name="dataSource" ref="database"/>
     </bean>
@@ -30,12 +32,12 @@
     <!-- 3) 获取 SqlSession 对象，并交由 spring 管理  用SqlSessionTemplate得到的SqlSession可以不用我们自己操心事务的管理，以及关闭操作-->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
         <!-- 给 SqlSessionTemplate 的构造函数赋值-->
-        <constructor-arg index="0" ref="sqlSessionFactory" />
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
     <!--<bean id="scannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
 
-        <!--&lt;!&ndash; name="basePackage":(起始)包名, 从这个包开始扫描&ndash;&gt;-->
-        <!--<property name="basePackage" value="com.yangjiaying.mapper"/>-->
+    <!--&lt;!&ndash; name="basePackage":(起始)包名, 从这个包开始扫描&ndash;&gt;-->
+    <!--<property name="basePackage" value="com.yangjiaying.mapper"/>-->
     <!--</bean>-->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="database"/>
