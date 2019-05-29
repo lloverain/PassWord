@@ -1,6 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page isELIgnored="false" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    response.setHeader("Cache-Control","no-store");
+    response.setHeader("Pragrma","no-cache");
+    response.setDateHeader("Expires",0);
+%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -13,7 +18,7 @@
 <div class="main">
     <div class="left">
         <div class="zhu">
-            <span><a>欢迎您:${name}</a></span>
+            <span><a>欢迎您:${name}</a><a href="/tuichu">退出登录</a> </span>
             <span><a>账户</a><input type="text" id="zhanghu" placeholder="输入你想保存账户～"></span>
             <span><a>密码</a><input type="text" id="mima" placeholder="这里输入你的密码！"></span>
             <span><a>平台</a><input type="text" id="pintai" placeholder="这是在哪个平台呀？"></span>

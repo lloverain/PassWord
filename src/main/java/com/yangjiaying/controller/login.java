@@ -31,4 +31,10 @@ public class login {
     public String tomain(){
         return "remenber";
     }
+
+    @RequestMapping(value = "/tuichu")
+    public String tuichu(HttpSession session){
+        session.removeAttribute("name");
+        return "redirect:login";
+    }
 }

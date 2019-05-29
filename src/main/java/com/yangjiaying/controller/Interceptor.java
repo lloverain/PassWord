@@ -10,7 +10,6 @@ public class Interceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object o) throws Exception {
         String name = String.valueOf(request.getSession().getAttribute("name"));
-        System.out.println(name);
         if("null".equals(name) || "".equals(name)){
             request.getRequestDispatcher("login").forward(request,response);
             return false;
